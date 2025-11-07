@@ -365,8 +365,7 @@ class ACTDIST(nn.Module):
 
         # Final action regression head on the output of the transformer's decoder.
         self.action_head_mean = nn.Linear(config.dim_model, self.config.action_feature.shape[0])
-        self.action_std = nn.Linear(config.dim_model, self.config.action_feature.shape[0])
-        self.action_head_std = nn.Softplus(self.action_std)
+        self.action_head_std = nn.Linear(config.dim_model, self.config.action_feature.shape[0])
 
         self._reset_parameters()
 
@@ -507,7 +506,9 @@ class ACTDIST(nn.Module):
         decoder_out = decoder_out.transpose(0, 1)
 
         actions_mean = self.action_head_mean(decoder_out)
-        actions_std = self.action_head_std(decoder_out)
+        actions_std_head = self.action_head_std(decoder_out)
+        actions_std= F.softplus(actions_std_head)
+
         actions = torch.normal(mean= actions_mean, std=actions_std)
         return actions, (mu, log_sigma_x2)
 
