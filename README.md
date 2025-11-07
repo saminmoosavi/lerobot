@@ -294,6 +294,10 @@ lerobot-train --config_path=lerobot/diffusion_pusht
 ```
 
 reproduces SOTA results for Diffusion Policy on the PushT task.
+##### Train your own policy
+```bash
+python src/lerobot/scripts/lerobot_train.py     --policy.type=act     --dataset.repo_id=jellyho/aloha_shoes_table    --env.type=aloha     --output_dir=outputs/train/act_aloha_sim_shoes --policy.push_to_hub=False
+```
 
 ## Contribute
 
