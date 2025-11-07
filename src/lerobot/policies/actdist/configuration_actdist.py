@@ -20,9 +20,9 @@ from lerobot.configs.types import NormalizationMode
 from lerobot.optim.optimizers import AdamWConfig
 
 
-@PreTrainedConfig.register_subclass("act")
+@PreTrainedConfig.register_subclass("actdist")
 @dataclass
-class ACTConfig(PreTrainedConfig):
+class ACTDISTConfig(PreTrainedConfig):
     """Configuration class for the Action Chunking Transformers policy.
 
     Defaults are configured for training on bimanual Aloha tasks like "insertion" or "transfer".

@@ -366,7 +366,7 @@ class ACTDIST(nn.Module):
         # Final action regression head on the output of the transformer's decoder.
         self.action_head_mean = nn.Linear(config.dim_model, self.config.action_feature.shape[0])
         self.action_std = nn.Linear(config.dim_model, self.config.action_feature.shape[0])
-        self.action_head_std = nn.softplus(self.action_std)
+        self.action_head_std = nn.Softplus(self.action_std)
 
         self._reset_parameters()
 
