@@ -509,7 +509,10 @@ class ACTDIST(nn.Module):
         actions_std_head = self.action_head_std(decoder_out)
         actions_std= F.softplus(actions_std_head)
 
-        actions = torch.normal(mean= actions_mean, std=actions_std)
+        epsilon = torch.randn_like(actions_mean)                         # same shape
+
+        # Reparameterization trick: a = mu + sigma * epsilons
+        actions = actions_mean + actions_std * epsilon
         return actions, (mu, log_sigma_x2)
 
 
